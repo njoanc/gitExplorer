@@ -19,7 +19,6 @@ const Home = () => {
 
   return (
     <div className=" flex mt-[3.13rem] flex-wrap">
-      <Link to="/login">Login</Link>
       {repos ? (
         repos.map((repo) => (
           <div
