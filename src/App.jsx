@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useState, lazy } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -29,31 +29,33 @@ const App = () => {
           timeout={300}
           unmountOnExit
         >
-          <Routes Location={location}>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/users/user/:username" element={<UserProfile />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/search" element={<SearchUser />} />
-            <Route
-              path="/login"
-              element={
-                <Login setIsLogged={setIsLogged} setUsername={setUsername} />
-              }
-            />
-            <Route
-              path="/authProfile"
-              element={
-                isLogged ? (
-                  <AuthProfile username={username} />
-                ) : (
-                  <Navigate replace to={"/login"} />
-                )
-              }
-            />
+          <Suspense fallback={() => <h1>Loading...</h1>}>
+            <Routes Location={location}>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/users/user/:username" element={<UserProfile />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/search" element={<SearchUser />} />
+              <Route
+                path="/login"
+                element={
+                  <Login setIsLogged={setIsLogged} setUsername={setUsername} />
+                }
+              />
+              <Route
+                path="/authProfile"
+                element={
+                  isLogged ? (
+                    <AuthProfile username={username} />
+                  ) : (
+                    <Navigate replace to={"/login"} />
+                  )
+                }
+              />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </CSSTransition>
       </SwitchTransition>
     </>
