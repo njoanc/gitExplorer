@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 function Login({ setIsLogged, setUsername }) {
   const [username, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +10,7 @@ function Login({ setIsLogged, setUsername }) {
 
   const dummyUserObject = {
     username: "njoanc",
-    password: "K12345",
+    password: "12345",
   };
 
   const handleLogin = (e) => {
@@ -21,7 +21,7 @@ function Login({ setIsLogged, setUsername }) {
     ) {
       setUsername(username);
       setIsLogged(true);
-      navigate("/profile");
+      navigate("/authProfile");
     } else {
       setErrorMsg("Invalid credentials");
     }
