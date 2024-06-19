@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [repos, setRepos] = useState(null);
+  const navigate = useNavigate();
 
   const getRepos = async () => {
     const response = await axios.get(
@@ -25,6 +26,7 @@ const Home = () => {
             className="flex justify-center items-center w-1/5 px-10 py-10 flex-col md:w-full"
             key={repo.id}
           >
+            console.log(repo)
             <img
               src={repo.owner.avatar_url}
               alt="userAvatar"
@@ -36,7 +38,13 @@ const Home = () => {
               By: <button className="">{repo.owner.login}</button>
             </div>
             <div>
-              <button>View Repo</button>
+              <button
+                onClick={() =>
+                  navigate(`/repoDetail/${repo.name}/${repo.owner.login}`)
+                }
+              >
+                View Repo
+              </button>
             </div>
           </div>
         ))

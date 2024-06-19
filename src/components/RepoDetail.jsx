@@ -13,7 +13,7 @@ const RepoDetail = () => {
       const response = await axios.get(
         `https://api.github.com/repos/${username}/${name}`
       );
-      console.log("USER IS HERE", response.data);
+
       setGitRepoData(response.data);
       return response.data;
     };
@@ -42,14 +42,14 @@ const RepoDetail = () => {
               </span>
               <h2>{gitRepoData.name}</h2>
               <div className="follow-cont">
-                <a
+                <Link
                   className="view-ongit-a"
-                  href={gitRepoData.html_url}
+                  to={gitRepoData.html_url}
                   target="_blank"
                   rel="noreferrer"
                 >
                   View on GitHub
-                </a>
+                </Link>
                 <div>
                   <input
                     className="clone-url-inp"
@@ -73,7 +73,7 @@ const RepoDetail = () => {
             </div>
           </>
         ) : (
-          <h1>Loadin...</h1>
+          <h1>Loading...</h1>
         )}
       </div>
     </div>
